@@ -1,5 +1,8 @@
 # Telegram Markdown text
 
+[![PyPI version](https://img.shields.io/pypi/v/telegram-markdown-text.svg)](https://pypi.org/project/telegram-markdown-text/)
+[![Python version](https://img.shields.io/badge/python-3.x-blue.svg)](https://www.python.org/downloads/)
+
 **Python модуль, що був створений для спрощення роботи з MarkdownV2 при написанні телеграм бота. Основною ідеєю було
 створити щось схоже на StringBuilder з мови програмування Kotlin.**
 
