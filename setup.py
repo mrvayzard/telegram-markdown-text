@@ -9,5 +9,8 @@ setup(
     packages=find_packages(),
     description="Simple MarkdownV2 string builder for the Telegram API",
     long_description=long_description,
-    long_description_content_type='text/markdown'
+    long_description_content_type='text/markdown',
+    url="https://github.com/mrvayzard/telegram-markdown-text",
+    author="Denys Yablonskyi",
+    keywords=["telegram", "tg", "markdown", "markdownV2", "text"],
 )
