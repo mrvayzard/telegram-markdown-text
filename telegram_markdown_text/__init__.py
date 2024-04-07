@@ -13,5 +13,6 @@ __all__ = [
     "Emoji",
     "InlineCode",
     "InlineCodeBlock",
+    "QuoteBlock",
     "PlainText",
 ]

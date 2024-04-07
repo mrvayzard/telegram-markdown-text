@@ -3,7 +3,10 @@ from abc import ABC
 
 class MarkdownText(ABC):
     def __init__(self, *parts):
-        self.parts = list(parts)
+        _parts = map(
+            lambda part: PlainText(part) if isinstance(part, str) else part, parts
+        )
+        self.parts = list(_parts)
 
     def __add__(self, other):
         if isinstance(other, str):
@@ -169,6 +172,18 @@ class InlineCodeBlock(_StyledText):
     @property
     def trailing_mark(self):
         return '\n```'
+
+
+class QuoteBlock(MarkdownText):
+    """Important! QuoteBlock should be added from a new line only."""
+
+    def escaped_text(self):
+        escaped_lines = super().escaped_text().split('\n')
+        quoted_lines = map(
+            lambda line: '>' + line if (len(line) > 0) else line,
+            escaped_lines
+        )
+        return '\n'.join(quoted_lines) + '**\r'
 
 
 class PlainText(MarkdownText):
