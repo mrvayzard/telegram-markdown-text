@@ -175,7 +175,8 @@ class InlineCodeBlock(_StyledText):
 
 
 class QuoteBlock(MarkdownText):
-    """Important! QuoteBlock should be added from a new line only."""
+    """Important! The QuoteBlock will automatically enclose the text with a newline character,
+    as the absence of this character may cause an error in the Telegram API."""
 
     def escaped_text(self):
         escaped_lines = super().escaped_text().split('\n')
@@ -183,7 +184,7 @@ class QuoteBlock(MarkdownText):
             lambda line: '>' + line if (len(line) > 0) else line,
             escaped_lines
         )
-        return '\n'.join(quoted_lines) + '**\r'
+        return '\n' + '\n'.join(quoted_lines) + '\n\r'
 
 
 class PlainText(MarkdownText):
