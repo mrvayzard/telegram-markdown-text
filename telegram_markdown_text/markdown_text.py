@@ -213,7 +213,7 @@ def _fix_underscore_ambiguity(text: str):
 
 
 def _escape_markdown(text: str):
-    chars_to_escape = {'_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'}
+    chars_to_escape = {'\\', '_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'}
     escaped_text = ''.join(['\\' + char if char in chars_to_escape else char for char in text])
     return escaped_text
 
