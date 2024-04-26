@@ -1,6 +1,6 @@
 from .markdown_text import *
 
-__version__ = '0.3'
+__version__ = '0.4'
 __all__ = [
     "MarkdownText",
     "Bold",
