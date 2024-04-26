@@ -33,7 +33,17 @@ class MarkdownText(ABC):
         return self.append(PlainText('\n'))
 
     def escaped_text(self):
-        return ''.join(part.escaped_text() for part in self.parts)
+        text = ''
+
+        for part in self.parts:
+            is_form_new_line = text == '' or text.endswith('\n') or text.endswith('\n\r')
+
+            if not is_form_new_line and isinstance(part, QuoteBlock):
+                text += f'\n{part.escaped_text()}'
+            else:
+                text += part.escaped_text()
+
+        return text
 
 
 class _StyledText(MarkdownText):
@@ -184,7 +194,7 @@ class QuoteBlock(MarkdownText):
             lambda line: '>' + line if (len(line) > 0) else line,
             escaped_lines
         )
-        return '\n' + '\n'.join(quoted_lines) + '\n\r'
+        return '\n'.join(quoted_lines) + '\n\r'
 
 
 class PlainText(MarkdownText):
