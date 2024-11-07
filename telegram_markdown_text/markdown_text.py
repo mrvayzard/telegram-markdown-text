@@ -188,13 +188,26 @@ class QuoteBlock(MarkdownText):
     """Important! The QuoteBlock will automatically enclose the text with a newline character,
     as the absence of this character may cause an error in the Telegram API."""
 
+    def __init__(self, text: str | MarkdownText, expandable: bool = False):
+        self._expandable = expandable
+
+        super().__init__(text)
     def escaped_text(self):
         escaped_lines = super().escaped_text().split('\n')
-        quoted_lines = map(
-            lambda line: '>' + line if (len(line) > 0) else line,
-            escaped_lines
-        )
-        return '\n'.join(quoted_lines) + '\n\r'
+        quoted_lines = []
+
+        for i, line in enumerate(escaped_lines):
+            if i == 0:
+                quoted_lines.append('**>' + line if len(line) > 0 else '**')
+            elif i == len(escaped_lines) - 1:
+                quoted_lines.append('>' + line if len(line) > 0 else line)
+            else:
+                quoted_lines.append('>' + line)
+
+        if self._expandable:
+            return '\n'.join(quoted_lines).rstrip('\n') + '||\n\r'
+        else:
+            return '\n'.join(quoted_lines).rstrip('\n') + '\n\r'
 
 
 class PlainText(MarkdownText):
