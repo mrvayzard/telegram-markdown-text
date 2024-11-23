@@ -190,24 +190,14 @@ class QuoteBlock(MarkdownText):
 
     def __init__(self, text: str | MarkdownText, expandable: bool = False):
         self._expandable = expandable
-
         super().__init__(text)
+
     def escaped_text(self):
         escaped_lines = super().escaped_text().split('\n')
-        quoted_lines = []
-
-        for i, line in enumerate(escaped_lines):
-            if i == 0:
-                quoted_lines.append('**>' + line if len(line) > 0 else '**')
-            elif i == len(escaped_lines) - 1:
-                quoted_lines.append('>' + line if len(line) > 0 else line)
-            else:
-                quoted_lines.append('>' + line)
-
-        if self._expandable:
-            return '\n'.join(quoted_lines).rstrip('\n') + '||\n\r'
-        else:
-            return '\n'.join(quoted_lines).rstrip('\n') + '\n\r'
+        quoted_lines = [f"**>{escaped_lines[0]}"]
+        quoted_lines.extend(f">{line}" for line in escaped_lines[1:])
+        suffix = "||\n\r" if self._expandable else "\n\r"
+        return '\n'.join(quoted_lines).rstrip('\n') + suffix
 
 
 class PlainText(MarkdownText):
