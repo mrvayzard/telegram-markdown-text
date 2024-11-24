@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="telegram-markdown-text",
-    version="0.4.1",
+    version="0.5.0",
     packages=find_packages(),
     description="Simple MarkdownV2 string builder for the Telegram API",
     long_description=long_description,
